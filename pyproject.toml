@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ifct-viz"
+version = "0.1.0"
+description = ""
+authors = ["p1utoze <1ds21ai001@dsce.edu.in>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+asyncpg = "^0.29.0"
+python-dotenv = "^1.0.1"
+pydantic-settings = "^2.2.1"
+streamlit = "^1.32.2"
+st-supabase-connection = "^1.2.2"
+
+
+[tool.poetry.group.dev.dependencies]
+rich = "^13.7.1"
+pdfservices-sdk = "^2.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
