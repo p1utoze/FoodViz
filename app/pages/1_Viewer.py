@@ -76,7 +76,7 @@ with st.container(height=100):
             value=_sess_state["fg"][grp_name]
         )
         fil_row = pd.DataFrame(fil_row.data)
-        sel = col2.selectbox("Choose a food item: ", ["ALL"] + fil_row[DB_FOOD_CODE_HEADER].tolist(), index=None,  placeholder="Select a food item")
+        sel = col2.selectbox("Choose a food item: ", ["ALL"] + fil_row[DB_FOOD_NAME_HEADER].tolist(), index=None,  placeholder="Select a food item")
         if sel == 'ALL':
             _sess_state["is_fil_row"] = False
             fil_row[DB_FOOD_TAGS_HEADER] = fil_row[DB_FOOD_TAGS_HEADER].str.split(' ')
@@ -86,7 +86,9 @@ with st.container(height=100):
             ]
             fil_row["images"] = img_urls
         elif sel:
+            sel_name = sel
             _sess_state["is_fil_row"] = True
+            sel = fil_row.loc[fil_row[DB_FOOD_NAME_HEADER] == sel, DB_FOOD_CODE_HEADER].values[0]
             # food_id = query_with_filter_eq(
             #     return_columns="*",
             #     table=DB_TABLE_NAME,
@@ -120,7 +122,7 @@ with st.container():
             with view.container():
                 img = fetch_image(f"{sel}")
                 col1, col2 = view.columns(2, gap="large")
-                col2.image(img, use_column_width=True, caption='IFCT Food Database')
+                col2.image(img, use_column_width=True, caption=f"Image of {sel_name.upper()}")
                 # print(_sess_state['gjson'].keys(), _sess_state['gjson']["features"][0].keys())
                 # print(_sess_state['gjson']["features"][0]["properties"]["NAME_0"].tolist())
                 # print(pd.json_normalize(_sess_state['gjson']["features"]).columns)
@@ -131,66 +133,83 @@ with st.container():
                     value=sel
                 )
                 sel_lang: list[str] = sel_lang.data[0]["lang"].split(";")
-                print(sel_lang)
-                sel_lang_code = pd.DataFrame([lang.strip().split(' ', maxsplit=1) for lang in sel_lang], columns=["abbr", "name"])
-                print(sel_lang_code)
-                df = pd.merge(sel_lang_code, _sess_state['indian_states'], left_on="abbr", right_on="abbr")
-                print(df)
-                fig = px.choropleth(
-                    pd.json_normalize(_sess_state['gjson']["features"])["properties.ST_NM"],
-                    geojson=_sess_state['gjson'],
-                    locations="properties.ST_NM",
-                    featureidkey="properties.ST_NM",
-                    # color_discrete_sequence=["lightgrey"],
-
-                )
-                fig.add_trace(
-                    px.choropleth(
-                        df,
+                try:
+                    assert sel_lang[0]
+                    sel_lang_code = pd.DataFrame([lang.strip().split(' ', maxsplit=1) for lang in sel_lang], columns=["abbr", "name"])
+                    df = pd.merge(sel_lang_code, _sess_state['indian_states'], left_on="abbr", right_on="abbr")
+                    all_states = pd.json_normalize(_sess_state['gjson']["features"])["properties.ST_NM"]
+                    fig = px.choropleth(
+                        all_states,
                         geojson=_sess_state['gjson'],
+                        locations="properties.ST_NM",
                         featureidkey="properties.ST_NM",
-                        locations="state",
-                        locationmode="geojson-id",
-                        color="id",
-                        scope="asia",
-                        custom_data=["state", "name", "lang"],
-                        fitbounds="locations",
-                        color_discrete_sequence=px.colors.sequential.Electric,
-
-                ).data[0]
-                )
-                is_nepal = sel_lang_code["abbr"].str.contains("N.")
-                if is_nepal.any():
-                    fig.add_trace(
-                        px.choropleth(
-                            {
-                                "state": ["Nepal"],
-                                "lang": "Nepali",
-                                "name": sel_lang_code.loc[is_nepal, "name"].values[0]
-                            },
-                            locationmode='ISO-3',
-                            locations=['NPL'],
-                            color=[1],
-                            color_continuous_scale=px.colors.sequential.Electric,
-                            custom_data=["state", "lang", "name"],
-                        ).data[0]
+                        color_discrete_sequence=["lightgrey"],
+                        labels={"properties.ST_NM": "State"}
                     )
-                fig.update_traces(
-                    hovertemplate="<br>".join(
-                        [
-                            "<b>%{customdata[0]}</b><br>",
-                            "Language: %{customdata[2]}",
-                            "Known as: %{customdata[1]}",
-                        ]
-                    ),
-                    colorscale=px.colors.sequential.Electric,
-                    selector=dict(scope="geojson-id")
-                )
+                    fig.add_trace(go.Choropleth(
+                            z=df["id"],
+                            name=sel,
+                            autocolorscale=False,
+                            geojson=_sess_state['gjson'],
+                            featureidkey="properties.ST_NM",
+                            locations=df["state"],
+                            locationmode="geojson-id",
+                            customdata=df[["state", "lang", "name"]],
+                            colorscale=px.colors.sequential.Inferno_r,
+                            uid=f"{sel}",
+                            hovertemplate="<br>".join(
+                                [
+                                    "<b>%{customdata[0]}</b><br>",
+                                    "Language: %{customdata[1]}",
+                                    "Known as: %{customdata[2]}",
+                                ]
+                            ),
+                        )
+                    )
+                    is_nepal = sel_lang_code["abbr"].str.contains("N.")
+                    if is_nepal.any():
+                        fig.add_trace(
+                            go.Choropleth(
+                                z=[1],
+                                customdata=pd.DataFrame({
+                                    "state": ["Nepal"],
+                                    "lang": "Nepali",
+                                    "name": sel_lang_code.loc[is_nepal, "name"].values[0]
+                                })[["state", "lang", "name"]],
+                                autocolorscale=False,
+                                reversescale=True,
+                                showscale=False,
+                                locationmode='ISO-3',
+                                locations=['NPL'],
+                                colorscale="greens",
+                                hovertemplate="<br>".join(
+                                    [
+                                        "<b>%{customdata[0]}</b><br>",
+                                        "Language: %{customdata[1]}",
+                                        "Known as: %{customdata[2]}",
+                                    ]
+                                ),
+                            )
+                        )
+                    fig.data[0]['name'] = "Toggle States"
+                    # fig.data[0]['legendgrouptitle'] = dict(text="Toggle states")
+                    fig.data[1]['colorbar']['x'] = 0.05
+                    fig.data[1]['colorbar']['len'] = 0.9
+                    fig.data[1]['colorbar']['y'] = 0.5
+                    fig.data[1]["hoverlabel"]["bgcolor"] = "rgba(0, 0, 0, 0.9)"
+                    fig.data[1]["hoverlabel"]["bordercolor"] = "white"
+                    # )
+
+                except AssertionError:
+                    fig = px.choropleth(
+                        locations=["IND"],
+                        locationmode="ISO-3",
+                        color=[1],
+                        scope="asia",
+                        fitbounds="locations",
+                    )
+                    fig.data[0]["name"] = sel
+                    fig.data[0]["hovertemplate"] = f"<b>India</b><br>Language: English/Hindi<br>Known as: {sel_name}"
                 fig.update_geos(fitbounds="locations", visible=False)
-                fig.update_layout(geo=dict(bgcolor='rgba(14, 17, 23, 0.9)'))
-                col1.plotly_chart(fig, use_container_width=True, theme='streamlit')
-            # col1.dataframe(food_id.to_frame(), use_container_width=True)
-            # path = PROJECT_ROOT / "data" / "figures" / "fileoutpart1.png"
-            # path = PROJECT_ROOT / "data" / "A001.jpeg"
-            # img = Image.open(path)
-            # col2.image(np_array(img), width=img.width, caption='IFCT Food Database')
+                fig.update_layout(geo=dict(bgcolor='rgba(14, 17, 20, 0.6)'))
+                col1.plotly_chart(fig, use_container_width=True)
