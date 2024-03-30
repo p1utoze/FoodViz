@@ -33,3 +33,8 @@ def prepare_indian_languages():
     df = pd.read_csv(path)
     return df
 
+@st.cache_data()
+def prepare_unit_data(path: str):
+    df = pd.read_csv(path)
+    df.drop("type", axis=1, inplace=True)
+    return df
