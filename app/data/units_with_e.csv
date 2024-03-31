@@ -204,8 +204,8 @@ zn,mass,1000000,ug,Zinc (Zn),5,MINERALS AND TRACE ELEMENTS
 zn_e,mass,1000000,ug,Zinc (Zn),5,MINERALS AND TRACE ELEMENTS
 frus,mass,1,g,Fructose,6,STARCH AND INDIVIDUAL SUGARS
 frus_e,mass,1,g,Fructose,6,STARCH AND INDIVIDUAL SUGARS
-glus,mass,1000,mg,Glucose,6,STARCH AND INDIVIDUAL SUGARS
-glus_e,mass,1000,mg,Glucose,6,STARCH AND INDIVIDUAL SUGARS
+glus,mass,1,g,Glucose,6,STARCH AND INDIVIDUAL SUGARS
+glus_e,mass,1,g,Glucose,6,STARCH AND INDIVIDUAL SUGARS
 sucs,mass,1,g,Sucrose,6,STARCH AND INDIVIDUAL SUGARS
 sucs_e,mass,1,g,Sucrose,6,STARCH AND INDIVIDUAL SUGARS
 mals,mass,1000,mg,Maltose,6,STARCH AND INDIVIDUAL SUGARS
@@ -238,18 +238,18 @@ f14d1cn5,mass,1000,mg,Myristoleic acid (C14:1),7,FATTY ACID PROFILE
 f14d1cn5_e,mass,1000,mg,Myristoleic acid (C14:1),7,FATTY ACID PROFILE
 f16d1cn7,mass,1000,mg,Palmitoleic acid (C16:1),7,FATTY ACID PROFILE
 f16d1cn7_e,mass,1000,mg,Palmitoleic acid (C16:1),7,FATTY ACID PROFILE
-f18d1cn9,mass,1,g,Oleic acid (C18:1n9),7,FATTY ACID PROFILE
-f18d1cn9_e,mass,1,g,Oleic acid (C18:1n9),7,FATTY ACID PROFILE
+f18d1cn9,mass,1000,mg,Oleic acid (C18:1n9),7,FATTY ACID PROFILE
+f18d1cn9_e,mass,1000,mg,Oleic acid (C18:1n9),7,FATTY ACID PROFILE
 f18d1tn9,mass,1,g,Elaidic acid (C18:1n9t),7,FATTY ACID PROFILE
 f18d1tn9_e,mass,1,g,Elaidic acid (C18:1n9t),7,FATTY ACID PROFILE
 f20d1cn9,mass,1000,mg,Eicosenoic acid (C20:1n9),7,FATTY ACID PROFILE
 f20d1cn9_e,mass,1000,mg,Eicosenoic acid (C20:1n9),7,FATTY ACID PROFILE
-f22d1cn9,mass,1,g,Erucic acid (C22:1n9),7,FATTY ACID PROFILE
-f22d1cn9_e,mass,1,g,Erucic acid (C22:1n9),7,FATTY ACID PROFILE
+f22d1cn9,mass,1000,mg,Erucic acid (C22:1n9),7,FATTY ACID PROFILE
+f22d1cn9_e,mass,1000,mg,Erucic acid (C22:1n9),7,FATTY ACID PROFILE
 f24d1cn9,mass,1000,mg,Nervonic acid (C24:1n9),7,FATTY ACID PROFILE
 f24d1cn9_e,mass,1000,mg,Nervonic acid (C24:1n9),7,FATTY ACID PROFILE
-f18d2cn6,mass,1,g,Linoleic acid (C18:2n6),7,FATTY ACID PROFILE
-f18d2cn6_e,mass,1,g,Linoleic acid (C18:2n6),7,FATTY ACID PROFILE
+f18d2cn6,mass,1000,mg,Linoleic acid (C18:2n6),7,FATTY ACID PROFILE
+f18d2cn6_e,mass,1000,mg,Linoleic acid (C18:2n6),7,FATTY ACID PROFILE
 f20d2n6,mass,1000,mg,Eicosadienoic acid (C20:2),7,FATTY ACID PROFILE
 f20d2n6_e,mass,1000,mg,Eicosadienoic acid (C20:2),7,FATTY ACID PROFILE
 f18d3n3,mass,1000,mg,α-Linolenic acid (C18:3n3),7,FATTY ACID PROFILE
