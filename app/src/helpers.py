@@ -22,7 +22,8 @@ def prepare_indian_languages():
     return df
 
 @st.cache_data()
-def prepare_unit_data(path: str):
+def prepare_unit_data(path: str, drop_col: str = "type") -> pd.DataFrame:
     df = pd.read_csv(path)
-    df.drop("type", axis=1, inplace=True)
+    if drop_col:
+        df.drop("type", axis=1, inplace=True)
     return df
