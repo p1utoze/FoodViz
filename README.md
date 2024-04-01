@@ -1,3 +1,5 @@
+[![Ploomber Cloud](https://github.com/p1utoze/IFCT/actions/workflows/ploomber-cloud.yaml/badge.svg?branch=main)](https://github.com/p1utoze/IFCT/actions/workflows/ploomber-cloud.yaml)
+
 # IFCT Visualizer
 
 This is a simple web application that allows you to visualize the IFCT 2017 dataset- A comprehensive collection of food resources in Indian subcontinent.
