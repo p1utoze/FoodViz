@@ -11,12 +11,20 @@ repos:
       - id: requirements-txt-fixer
 
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.2.1
+    rev: v2.3.1
     hooks:
       - id: autoflake
 
+  - repo: https://github.com/miki725/importanize/
+    rev: 'master'
+    hooks:
+      - id: importanize
+        language_version: python3
+        language: python
+        args: [ --verbose ]
+
   - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0
+    rev: 7.0.0
     hooks:
       - id: flake8
         exclude: ^.*__init__.py$
@@ -45,23 +53,24 @@ repos:
 #        files: requirements
 
   - repo: https://github.com/PyCQA/bandit
-    rev: '1.7.5'
+    rev: '1.7.8'
     hooks:
       - id: bandit
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.1.6
+    rev: v0.3.4
     hooks:
       - id: ruff
         args:
           - --fix
-          - --line-length=79
+          - --line-length=120
+
   - repo: https://github.com/psf/black
     rev: 23.11.0
     hooks:
       - id: black
         language_version: python3
-        args: [--line-length=79]
+        args: [--line-length=120]
 
   - repo: https://github.com/python-poetry/poetry
     rev: '1.8.2'
