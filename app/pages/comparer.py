@@ -7,15 +7,15 @@ from src.config import PROJECT_ROOT
 def run():
     _sess_state = st.session_state
 
-    if "units_df" not in _sess_state:
+    if "units_data" not in _sess_state:
         path = PROJECT_ROOT / "data" / "units_with_e.csv"
         _sess_state["units_df"] = prepare_unit_data(path, "")
 
-    if "_conn" not in _sess_state:
-        st.error("Connection not established. Please check your connection.")
-        st.info("Go to the Home page and try again.")
-        st.page_link("Home.py", label="Go to Home Page", icon="🔙")
-        st.stop()
+    # if "_conn" not in _sess_state:
+    #     st.error("Connection not established. Please check your connection.")
+    #     st.info("Go to the Home page and try again.")
+    #     st.page_link("Home.py", label="Go to Home Page", icon="🔙")
+    #     st.stop()
 
     def get_food_code() -> list:
         ss = _sess_state["units_df"].loc[(_sess_state["units_df"]["name"].isin(_sess_state["nutrient"])), "code"]

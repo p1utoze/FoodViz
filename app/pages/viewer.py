@@ -2,7 +2,6 @@ import pandas as pd
 import streamlit as st
 from plotly import express as px, graph_objects as go
 from src import (
-    SupabaseConnection,
     prepare_indian_geojson,
     prepare_indian_languages,
     prepare_unit_data,
@@ -53,9 +52,6 @@ def run():
 
     if "is_fil_row" in _sess_state:
         del st.session_state["is_fil_row"]
-
-    if "_conn" not in _sess_state:
-        _sess_state["_conn"] = st.connection("supabase", type=SupabaseConnection)
 
     if "gjson" not in _sess_state:
         _sess_state["gjson"] = prepare_indian_geojson()

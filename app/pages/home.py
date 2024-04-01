@@ -1,5 +1,4 @@
 import streamlit as st
-from src import SupabaseConnection
 
 
 # selected5 = option_menu(None, ["🏠Home", "👁‍🗨️View", "📊Compare"],
@@ -12,8 +11,8 @@ from src import SupabaseConnection
 
 def run():
     # Initialize connection.
-    if "_conn" not in st.session_state:
-        st.session_state._conn = st.connection("supabase", type=SupabaseConnection)
+    # if "_conn" not in st.session_state:
+    #     st.session_state._conn = st.connection("supabase", type=SupabaseConnection)
 
     empty = st.empty()
     with empty.container():
