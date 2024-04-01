@@ -20,6 +20,7 @@ geopandas = "^0.14.3"
 [tool.poetry.group.dev.dependencies]
 rich = "^13.7.1"
 pdfservices-sdk = "^2.3.1"
+ploomber-cloud = "^0.1.19"
 
 [build-system]
 requires = ["poetry-core"]
