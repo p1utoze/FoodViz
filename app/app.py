@@ -1,10 +1,13 @@
 import streamlit as st
 import streamlit_antd_components as sac
+from dotenv import load_dotenv
 from pages.comparer import run as comparer_run
 from pages.home import run as home_run
 from pages.viewer import run as viewer_run
 from src import SupabaseConnection
 
+
+load_dotenv()
 
 pages = {
     "Home": [home_run, 0],
