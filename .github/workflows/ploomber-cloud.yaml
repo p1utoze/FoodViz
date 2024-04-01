@@ -22,6 +22,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install ploomber-cloud
 
+      - name: Create environment file
+        shell: bash
+        env:
+          SECRET_URL: ${{ secrets.SUPABASE_URL }}
+          SECRET_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          pwd
+          printf "SUPABASE_URL=$SECRET_URL\nSUPABASE_KEY=$SECRET_KEY" > app/.env
+
       - name: Deploy
         env:
           PLOOMBER_CLOUD_KEY: ${{ secrets.PLOOMBER_CLOUD_KEY }}
