@@ -44,3 +44,7 @@ backgroundColor="#000000"
 secondaryBackgroundColor="#8b0000"
 textColor="#b0c4de"
 font="monospace"
+
+[client]
+toolbarMode="minimal"
+showSidebarNavigation=false
