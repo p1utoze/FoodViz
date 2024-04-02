@@ -17,22 +17,6 @@ from src.config import (
 from src.utils import load_json
 
 
-# st.set_page_config(
-#     page_title="IFCT Food Database",
-#     page_icon="🍔",
-#     layout="wide",
-#     initial_sidebar_state="collapsed"
-# )
-#
-# st.markdown(
-#     """
-#     <style>
-# .appview-container .main .block-container{{
-#         padding-top: {padding_top}rem;    }}
-# </style>
-# """.format(padding_top=0.1),
-#     unsafe_allow_html=True,
-# )
 def run():
     css = """
     <style>
@@ -102,13 +86,10 @@ def run():
     def tab1_box1_callback():
         _sess_state["comp_name"] = None
 
-    st.header("IFCT Food Database Overview 🚚")
-    st.markdown(
-        "> This page provides details of the individual food item provided by Indian Food Composition Tabless(IFCT)"
-        "database. You can view the details of the food items and their composition in the database."
-    )
+    st.header("🚚 IFCT Food Database Overview")
+    st.markdown("Choose the food group and food item from the dropdown to view the basic info of the food item. 👇")
 
-    tab1, tab2 = st.tabs(["Overview", "Details"])
+    tab1, tab2 = st.tabs(["🍽 Overview", "🔢 Nutritional Details"])
     with tab1:
         with st.container(height=100):
             return_cols = f"{DB_FOOD_CODE_HEADER}, {DB_FOOD_NAME_HEADER}, {DB_SCI_NAME_HEADER}, {DB_FOOD_TAGS_HEADER}"
@@ -171,9 +152,6 @@ def run():
                 img = fetch_image(f"{sel}")
                 col1, col2 = view.columns(2, gap="large")
                 col2.image(img, use_column_width=True, caption=f"Image of {sel_name.upper()}")
-                # print(_sess_state['gjson'].keys(), _sess_state['gjson']["features"][0].keys())
-                # print(_sess_state['gjson']["features"][0]["properties"]["NAME_0"].tolist())
-                # print(pd.json_normalize(_sess_state['gjson']["features"]).columns)
                 sel_lang = query_with_filter_eq(
                     return_columns="lang", table=DB_TABLE_NAME, column=DB_FOOD_CODE_HEADER, value=sel, as_df=False
                 )
@@ -242,8 +220,6 @@ def run():
                             )
                         )
                     fig.data[0]["name"] = "Toggle States"
-                    # fig.data[0]['legendgrouptitle'] = dict(text="Toggle states")
-                    # fig.data[1]['colorbar']['x'] = 0.05
                     fig.data[1]["colorbar"]["len"] = 0.6
                     fig.data[1]["colorbar"]["y"] = 0.5
                     fig.data[1]["hoverlabel"]["bgcolor"] = "rgba(0, 0, 0, 0.9)"
@@ -288,7 +264,6 @@ def run():
 
     with tab2:
         with tab2.container(height=100):
-            [DB_FOOD_CODE_HEADER, DB_FOOD_NAME_HEADER, DB_SCI_NAME_HEADER, DB_FOOD_TAGS_HEADER]
             st.selectbox(
                 "Choose a food composition category: ",
                 _sess_state["units_df"]["table_name"].dropna().unique(),
@@ -307,7 +282,6 @@ def run():
             )
             food_item_df = food_item_df.T.reset_index()
             food_item_df.columns = ["code", "value"]
-            print(_sess_state["comp_name"])
             if _sess_state["comp_name"]:
                 cards = pd.merge(
                     _sess_state["units_df"].loc[_sess_state["units_df"]["table_name"] == _sess_state["comp_name"]],
@@ -319,8 +293,6 @@ def run():
                 cards["value"] = cards["value"].astype(float)
                 cards = cards.loc[cards["value"] != 0, :]
                 card_elements = cards.shape[0]
-                print(f"{_sess_state['comp_name']} Count: ", card_elements)
-
                 if not card_elements:
                     st.info("No data available for the selected food composition. :red[Please Select different one.]")
                     st.stop()
@@ -328,8 +300,6 @@ def run():
                 condition = cards["code"].str.endswith("_e")
                 item_indexes = cards.loc[~condition, :].index.tolist()
                 item_index_c, row_size = 0, 4
-                print("Item Indexes", item_indexes)
-                print("-" * 50)
                 metric_containers = [st.container(height=175) for _ in range((len(item_indexes) - 1) // row_size + 1)]
                 for container in metric_containers:
                     with container:
