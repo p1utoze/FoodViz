@@ -5,6 +5,7 @@ from pages.comparer import run as comparer_run
 from pages.home import run as home_run
 from pages.viewer import run as viewer_run
 from src import SupabaseConnection
+import os
 
 # Loads the environment variables
 load_dotenv()
@@ -26,7 +27,9 @@ if __name__ == "__main__":
         page_icon="🍔",
         layout="wide",
     )
-
+    print(st.secrets["SUPABASE_URL"])
+    print(os.getenv("SUPABASE_URL"))
+    
     # Set the page index to Home.
     if "page_index" not in st.session_state:
         st.session_state.page_index = 0
