@@ -10,12 +10,13 @@ def run():
     if "units_data" not in _sess_state:
         path = PROJECT_ROOT / "data" / "units_with_e.csv"
         _sess_state["units_df"] = prepare_unit_data(path, "")
-
-    # if "_conn" not in _sess_state:
-    #     st.error("Connection not established. Please check your connection.")
-    #     st.info("Go to the Home page and try again.")
-    #     st.page_link("Home.py", label="Go to Home Page", icon="🔙")
-    #     st.stop()
+    if "tooltips" not in _sess_state:
+        _sess_state["tooltips"] = {
+            "mg": "Milligrams",
+            "g": "Grams",
+            "kg": "Kilograms",
+            "ug": "Micrograms",
+        }
 
     def get_food_code() -> list:
         ss = _sess_state["units_df"].loc[(_sess_state["units_df"]["name"].isin(_sess_state["nutrient"])), "code"]
@@ -29,7 +30,7 @@ def run():
             return pd.DataFrame(response.data)
         return response.data
 
-    st.title("Nutrient Comparison Table Chart")
+    st.header("📊 Nutrient Comparison Table Chart")
 
     st.multiselect(
         "Select Nutrient",
@@ -50,10 +51,11 @@ def run():
         for i in range(len(cols)):
             response[cols[i]] = response[cols[i]] * factors[i]
             config[cols[i]] = st.column_config.ProgressColumn(
-                f"{_sess_state['nutrient'][i]} in {units[i]}",
+                f"{_sess_state['nutrient'][i].upper()}",
                 format=f"%.2f {units[i]}",
+                help=f"Values in {_sess_state['tooltips'][units[i]]}",
                 min_value=float(response[cols[i]].min()),
                 max_value=float(response[cols[i]].max()),
             )
-        # print(config)
+
         st.dataframe(response, column_config=config, use_container_width=True, height=500)
