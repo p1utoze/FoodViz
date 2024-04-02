@@ -6,7 +6,7 @@ from pages.home import run as home_run
 from pages.viewer import run as viewer_run
 from src import SupabaseConnection
 
-
+# Loads the environment variables
 load_dotenv()
 
 pages = {
