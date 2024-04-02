@@ -10,9 +10,9 @@ from src import SupabaseConnection
 load_dotenv()
 
 pages = {
-    "Home": [home_run, 0],
-    "View": [viewer_run, 1],
-    "Compare": [comparer_run, 2],
+    "Home": [home_run, 0, "house"],
+    "View": [viewer_run, 1, "search"],
+    "Compare": [comparer_run, 2, "bar-chart-steps"],
 }
 
 
@@ -42,12 +42,12 @@ if __name__ == "__main__":
             padding-top: {padding_top}rem;    }}
     </style>
     """.format(
-            padding_top=1
+            padding_top=1.5
         ),
         unsafe_allow_html=True,
     )
     sac.tabs(
-        [sac.TabsItem(label=i, icon="house") for i in pages.keys()],
+        [sac.TabsItem(label=i, icon=pages[i][2]) for i in pages.keys()],
         variant="outline",
         index=st.session_state.page_index,
         use_container_width=True,
