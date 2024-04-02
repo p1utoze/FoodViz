@@ -27,8 +27,8 @@ if __name__ == "__main__":
         page_icon="🍔",
         layout="wide",
     )
-    print(f'SUPABASE URL: "{st.secrets['SUPABASE_URL']}"')
-    print(os.getenv("SUPABASE_URL"))
+    print(repr(st.secrets['SUPABASE_URL']))
+    print(repr(os.getenv("SUPABASE_URL")))
     
     # Set the page index to Home.
     if "page_index" not in st.session_state:
