@@ -16,6 +16,7 @@ def run():
             "g": "Grams",
             "kg": "Kilograms",
             "ug": "Micrograms",
+            "ng": "Nanograms",
             "kJ": "Kilojoules",
         }
 
