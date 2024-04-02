@@ -30,6 +30,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
           echo $SECRET_URL
+          printf "SUPABASE_URL=\"$SECRET_URL\"\nSUPABASE_KEY=\"$SECRET_KEY\"" > ./app/.env
 
       - name: Deploy
         env:
