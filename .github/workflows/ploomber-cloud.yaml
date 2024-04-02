@@ -9,6 +9,7 @@ on:
 jobs:
   deploy-to-ploomber-cloud:
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - uses: actions/checkout@v2
@@ -29,7 +30,6 @@ jobs:
           SECRET_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
           echo $SECRET_URL
-          printf "SUPABASE_URL=\"$SECRET_URL\"\nSUPABASE_KEY=\"$SECRET_KEY\"" > app/.env
 
       - name: Deploy
         env:
