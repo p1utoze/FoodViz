@@ -29,7 +29,6 @@ jobs:
           SECRET_URL: ${{ secrets.SUPABASE_URL }}
           SECRET_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
-          echo $SECRET_URL
           printf "SUPABASE_URL=\"$SECRET_URL\"\nSUPABASE_KEY=\"$SECRET_KEY\"" > ./app/.env
 
       - name: Deploy
@@ -37,6 +36,7 @@ jobs:
           PLOOMBER_CLOUD_KEY: ${{ secrets.PLOOMBER_CLOUD_KEY }}
         run: |
           cd app/
+          cat .env
           ploomber-cloud deploy --watch
         # The --watch flag will print deployment status updates to the logs.
         # To learn more, visit: https://docs.cloud.ploomber.io/en/latest/user-guide/github.html
