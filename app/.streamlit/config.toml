@@ -39,11 +39,23 @@
 #secondaryBackgroundColor="#3d2c1f"
 #textColor="#ffe4b5"
 # -- spicy heat --
-primaryColor="#d9534f"
-backgroundColor="#000000"
-secondaryBackgroundColor="#8b0000"
-textColor="#b0c4de"
-font="monospace"
+#primaryColor="#d9534f"
+#backgroundColor="#000000"
+#secondaryBackgroundColor="#8b0000"
+#textColor="#b0c4de"
+#font="monospace"
+# -- fit blue --
+primaryColor="#0066ee"
+backgroundColor="#11131C"
+secondaryBackgroundColor="#373f51"
+textColor="#fdfeff"
+# -- grey and teal
+#primaryColor="#049a77"
+#backgroundColor="#000000"
+#secondaryBackgroundColor="#2d3446"
+#textColor="#e5e5e5"
+
+
 
 [client]
 toolbarMode="minimal"
