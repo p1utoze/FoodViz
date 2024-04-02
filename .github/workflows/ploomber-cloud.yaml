@@ -1,10 +1,9 @@
 name: Ploomber Cloud
 
 on:
-  push:
-    branches:
-      # only deploy from the main branch
-      - main
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
 
 jobs:
   deploy-to-ploomber-cloud:
