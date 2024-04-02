@@ -17,6 +17,8 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_USERNAME: ${{ env.HF_USERNAME }}
+          SPACE_NAME: ${{ env.SPACE_NAME }}
         run: | 
           cd app/
           printf "Space Name: $SPACE_NAME" 
