@@ -21,6 +21,6 @@ jobs:
           SPACE_NAME: ${{ env.SPACE_NAME }}
         run: | 
           cd app/
-          echo ${{ env.HF_USERNAME }}
+          echo ${{ vars.HF_USERNAME }}
           printf "Space Name: $SPACE_NAME" 
           git push https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME main
