@@ -1,26 +1,14 @@
 import streamlit as st
 
 
-# selected5 = option_menu(None, ["🏠Home", "👁‍🗨️View", "📊Compare"],
-#                         # icons=['house', 'cloud-upload', "list-task"],
-#                         on_change=on_change, key='menu_5', orientation="horizontal",
-#                         )
-#
-# selected5
-
-
 def run():
-    # Initialize connection.
-    # if "_conn" not in st.session_state:
-    #     st.session_state._conn = st.connection("supabase", type=SupabaseConnection)
-
     empty = st.empty()
     with empty.container():
         col1, col2 = st.columns([1, 2])
         col1.markdown(
             """
-            <h1 style="font-size: 4.5em; font-weight: bold; color: #DC5F00;">FoodViz</h1>
-            <h3 style="font-size: 2.5em; color: #B08565;">Interactive Food Composition Explorer</h3>
+            <h1 style="font-size: 4.5em; font-weight: bold; color: #e63946;">FoodViz</h1>
+            <h3 style="font-size: 2.5em; color: #a8dadc;">Interactive Food Composition Explorer</h3>
             """,
             unsafe_allow_html=True,
         )
@@ -35,11 +23,11 @@ def run():
     with st.container():
         cphrase = "Are you a Gym freak or a Health enthusiast?"
         cphrase_sub = (
-            "Either way, you are at the right place! Explore the food composition of your favourite food items."
+            "Either way, you are at the right place! Explore the food composition of your favourite indian meals."
         )
         st.markdown(
             f"""
-            <h2 style="font-size: 2.5em; font-weight: bold; text-align: center;">{cphrase}</h2>
+            <h2 style="font-size: 2.5em; font-weight: bold; text-align: center; color: #457b9d">{cphrase}</h2>
             <h5 style="font-size: 1.5em; text-align: center;">{cphrase_sub}</h5>
             """,
             unsafe_allow_html=True,
