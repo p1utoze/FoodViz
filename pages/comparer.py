@@ -26,8 +26,9 @@ def run():
     def get_food_code(extra_cols=None) -> list:
         if extra_cols is None:
             extra_cols = []
-        ss = _sess_state["units_df"].loc[(_sess_state["units_df"]["name"].isin(_sess_state["nutrient"])), "code"]
-        return ss[~ss.str.endswith("_e")].tolist() + extra_cols
+        ss = _sess_state["units_df"].loc[
+            (_sess_state["units_df"]["name"].isin(_sess_state["nutrient"])), ["code"] + extra_cols]
+        return ss[~ss.code.str.endswith("_e")].values.T.tolist()
 
     @st.cache_data(ttl=600)
     def get_nutrient_column(table: str, return_columns: str = "*", as_df: bool = True):
@@ -48,7 +49,10 @@ def run():
 
     st.empty()
     if "nutrient" in _sess_state and _sess_state["nutrient"]:
-        cols = get_food_code(["grup"])
+        cols = get_food_code(["name"])
+        cols, names = cols[0], cols[1]
+        print(cols, names)
+        cols.append("grup")
         response = get_nutrient_column("food_ifct", return_columns=",".join(cols))
         response.set_index("name", inplace=True)
         config = {}
@@ -58,7 +62,7 @@ def run():
         for i in range(len(cols)):
             response[cols[i]] = response[cols[i]] * factors[i]
             config[cols[i]] = st.column_config.ProgressColumn(
-                f"{_sess_state['nutrient'][i].upper()}",
+                f"{names[i].upper()}",
                 format=f"%.2f {units[i]}",
                 help=f"Values in {_sess_state['tooltips'][units[i]]}",
                 min_value=float(response[cols[i]].min()),
