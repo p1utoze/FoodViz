@@ -5,7 +5,6 @@ from pages.comparer import run as comparer_run
 from pages.home import run as home_run
 from pages.viewer import run as viewer_run
 from src import SupabaseConnection
-import os
 
 # Loads the environment variables
 load_dotenv()
