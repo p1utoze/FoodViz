@@ -16,6 +16,7 @@ plotly = "^5.20.0"
 plotly-geo = "^1.0.0"
 geopandas = "^0.14.3"
 streamlit-antd-components = "^0.3.2"
+matplotlib = "^3.8.3"
 
 
 [tool.poetry.group.dev.dependencies]
