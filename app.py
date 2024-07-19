@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from pages.comparer import run as comparer_run
 from pages.home import run as home_run
 from pages.viewer import run as viewer_run
+from pages.search import run as search_run
 from src import SupabaseConnection
 
 # Loads the environment variables
@@ -13,6 +14,7 @@ pages = {
     "Home": [home_run, 0, "house"],
     "View": [viewer_run, 1, "search"],
     "Compare": [comparer_run, 2, "bar-chart-steps"],
+    "Search": [search_run, 3, "search"],
 }
 
 
