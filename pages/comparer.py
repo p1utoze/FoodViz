@@ -51,7 +51,6 @@ def run():
     if "nutrient" in _sess_state and _sess_state["nutrient"]:
         cols = get_food_code(["name"])
         cols, names = cols[0], cols[1]
-        print(cols, names)
         cols.append("grup")
         response = get_nutrient_column("food_ifct", return_columns=",".join(cols))
         response.set_index("name", inplace=True)
