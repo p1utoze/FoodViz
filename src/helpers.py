@@ -56,4 +56,4 @@ def load_retriever(persist_dir: str, top_k: int = 5) -> BaseRetriever:
         persist_dir=persist_dir,
     )
     loaded_index = load_index_from_storage(storage_context, embed_model=embed_model, show_progress=True)
-    return loaded_index.as_retriever(similarity_top_k=top_k)
+    return loaded_index.as_retriever(similarity_top_k=top_k, vector_store_query_mode="semantic_hybrid", vector_store_kwargs={"alpha": 0.1})
