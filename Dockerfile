@@ -18,16 +18,17 @@ WORKDIR /app
 
 # Install python packages
 COPY requirements.txt /app/requirements.txt
+RUN #python3 -m pip install torch --index-url https://download.pytorch.org/whl/cpu
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install -r requirements.txt
 
 # Copy the Entry Point script
 COPY app.py /app/app.py
 
-COPY pages /app/pages
-COPY data /app/data
+COPY pages/ /app/pages
+COPY data/ /app/data/
 COPY .streamlit /app/.streamlit
-COPY src /app/src
+COPY src/ /app/src
 
 # Expose the port
 EXPOSE 8501
