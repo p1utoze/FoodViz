@@ -12,7 +12,7 @@ load_dotenv()
 
 pages = {
     "Home": [home_run, 0, "house"],
-    "View": [viewer_run, 1, "search"],
+    "View": [viewer_run, 1, "eye"],
     "Compare": [comparer_run, 2, "bar-chart-steps"],
     "Search": [search_run, 3, "search"],
 }
