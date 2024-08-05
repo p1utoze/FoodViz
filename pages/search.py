@@ -71,7 +71,7 @@ def run():
             idx = node_len - i - 1
             card(
                 title=f"{nodes[idx].text}",
-                text=f"Name: {nodes[idx].metadata['name']}  |   Scientific Name: {nodes[idx].metadata['scientific_name']}   |   Local Language: {nodes[idx].metadata['lang']}",
+                text=f"Name: {nodes[idx].metadata['name']}  |   Scientific Name: {nodes[idx].metadata['scientific_name']}   |   Local Language: {nodes[idx].metadata['lang']} | Score: {nodes[idx].score}",
                 key=f"card_{idx}",
                 on_click=lambda: _sess_state.update({"idx": idx}),
                 styles={
