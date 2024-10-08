@@ -1,12 +1,15 @@
-import streamlit as st
+import os
+
 import geopandas as gpd
 import pandas as pd
-import os
+import streamlit as st
 from llama_index.core import load_index_from_storage, StorageContext
+from llama_index.core.retrievers import BaseRetriever
 from llama_index.embeddings.voyageai import VoyageEmbedding
 from llama_index.vector_stores.faiss import FaissVectorStore
-from llama_index.core.retrievers import BaseRetriever
+
 from .config import PROJECT_ROOT
+
 
 @st.cache_data(show_spinner=":blue[Loading the database..] Please wait...", persist=True)
 def prepare_indian_geojson():
@@ -57,3 +60,11 @@ def load_retriever(persist_dir: str, top_k: int = 5) -> BaseRetriever:
     )
     loaded_index = load_index_from_storage(storage_context, embed_model=embed_model, show_progress=True)
     return loaded_index.as_retriever(similarity_top_k=top_k, vector_store_query_mode="semantic_hybrid", vector_store_kwargs={"alpha": 0.1})
+
+@st.cache_data
+def load_bubble_data(df_path: str ):
+    df = pd.read_csv(df_path)
+    query = lambda x: st.session_state["_conn"].storage.from_('indian_food').get_public_url(f'food-classes/{x.capitalize()}.jpg')
+    df["url"] = df["grup"].apply(query)
+    return df
+    

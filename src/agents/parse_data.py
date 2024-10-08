@@ -1,14 +1,17 @@
 import os
+import re
+
 import faiss
 import pandas as pd
-import re
-from src.utils.config import PROJECT_ROOT
+from dotenv import load_dotenv
 from llama_index.core import VectorStoreIndex, StorageContext
 from llama_index.core.node_parser import SimpleNodeParser
 from llama_index.core.schema import Document, MetadataMode
 from llama_index.embeddings.voyageai import VoyageEmbedding
 from llama_index.vector_stores.faiss import FaissVectorStore
-from dotenv import load_dotenv
+
+from src.utils.config import PROJECT_ROOT
+
 load_dotenv()
 
 d = 1536

@@ -1,12 +1,10 @@
+from abc import ABC, abstractmethod
+from collections import OrderedDict
 from enum import Enum
+from json import load
 from pathlib import Path
 
 import streamlit as st
-from abc import ABC, abstractmethod
-from json import load
-from pathlib import Path
-from collections import OrderedDict
-from pydantic import BaseModel, Field
 
 GROUPS = Path(__file__).parent.parent / "data" / "food_groups.json"
 
