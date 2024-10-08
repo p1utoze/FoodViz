@@ -1,11 +1,11 @@
 import streamlit as st
 import streamlit_antd_components as sac
 from dotenv import load_dotenv
-from pages.comparer import run as comparer_run
-from pages.home import run as home_run
-from pages.viewer import run as viewer_run
-from pages.search import run as search_run
-from src import SupabaseConnection
+# from src.pages.comparer import run as comparer_run
+from pages import home_run, comparer_run, search_run, viewer_run
+# from src.pages.viewer import run as viewer_run
+# from src.pages.search import run as search_run
+from src.utils import SupabaseConnection
 
 # Loads the environment variables
 load_dotenv()
