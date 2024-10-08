@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
-from src.utils import prepare_unit_data
-from src.utils.config import COLOR_MAP, PROJECT_ROOT
+from foodviz.utils import prepare_unit_data
+from foodviz.utils.config import COLOR_MAP, PROJECT_ROOT
 
 
 def run():

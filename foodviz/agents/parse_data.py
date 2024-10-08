@@ -10,7 +10,7 @@ from llama_index.core.schema import Document, MetadataMode
 from llama_index.embeddings.voyageai import VoyageEmbedding
 from llama_index.vector_stores.faiss import FaissVectorStore
 
-from src.utils.config import PROJECT_ROOT
+from foodviz.utils.config import PROJECT_ROOT
 
 load_dotenv()
 

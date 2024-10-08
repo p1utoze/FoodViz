@@ -13,7 +13,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #11131C;
+            background-color: #373f51;
         }
         
         .tooltip {
@@ -47,8 +47,7 @@
     </style>
 </head>
 <body>
-    <h1 style="color:wheat">HI</h1>
-    <svg width="600" height="400"></svg>
+    <svg width="800" height="600"></svg>
     <div class="tooltip"></div>
     <script>
         const svg = d3.select("svg");
@@ -58,7 +57,7 @@ const tooltip = d3.select(".tooltip");
 
 async function getData() {
     try {
-        return await d3.csv('../../data/food-types.csv');
+        return await d3.csv('https://raw.githubusercontent.com/p1utoze/FoodViz/refs/heads/main/src/data/food-types.csv');
     } catch (error) {
         console.error("Error loading CSV:", error);
         throw error;
@@ -76,7 +75,7 @@ async function initializeVisualization() {
     // Create a scale for the radius
     const radiusScale = d3.scaleLinear()
         .domain([minItems, maxItems])
-        .range([10, 50]);  // You can adjust these values to change the min and max bubble sizes
+        .range([25, 100]);  // You can adjust these values to change the min and max bubble sizes
 
     const data = csvData.map((k) => ({
         id: k.grup,
@@ -121,8 +120,8 @@ async function initializeVisualization() {
 
     bubbles.append("image")
         .attr("href", d => d.url)  // Use the URL from the CSV data
-        .attr("width", d => 1.5 * d.r)
-        .attr("height", d => 1.5 * d.r);
+        .attr("width", d => 2 * d.r)
+        .attr("height", d => 2 * d.r);
 
     let draggedNode = null;
 
@@ -132,8 +131,8 @@ async function initializeVisualization() {
             .attr("cx", d => d.x)
             .attr("cy", d => d.y);
         bubbles.select("image")
-            .attr("x", d => d.x - d.r * 0.75)
-            .attr("y", d => d.y - d.r * 0.75);
+            .attr("x", d => d.x - d.r)
+            .attr("y", d => d.y - d.r);
 
         // Your existing collision detection code here
         // ...
@@ -160,7 +159,7 @@ async function initializeVisualization() {
 
     function showTooltip(event, d) {
         tooltip.style("opacity", 1)
-            .html(`Name: ${d.name}<br>Items: ${d.r}`);
+            .html(`Name: ${d.name}<br>Items: ${d.items}`);
         moveTooltip(event);
     }
 

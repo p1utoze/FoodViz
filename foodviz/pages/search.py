@@ -1,8 +1,8 @@
 import streamlit as st
 from streamlit_card import card
 
-from src.utils.config import PROJECT_ROOT
-from src.utils.helpers import load_retriever, generate_color_range
+from foodviz.utils.config import PROJECT_ROOT
+from foodviz.utils.helpers import load_retriever, generate_color_range
 
 start_green = (0, 255, 0)
 end_red = (255, 0, 0)

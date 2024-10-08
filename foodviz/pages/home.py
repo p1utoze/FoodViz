@@ -1,8 +1,8 @@
 import streamlit as st
 import streamlit.components.v1 as components
 from pathlib import Path
-from src.utils.helpers import load_bubble_data
-from src.utils.config import PROJECT_ROOT
+from foodviz.utils.helpers import load_bubble_data
+from foodviz.utils.config import PROJECT_ROOT
 
 custom_chart = Path(__file__).parent / "frontend" / "bubble.html"
 chart_data = PROJECT_ROOT / "data" / "food-types.csv"
@@ -13,8 +13,8 @@ def run():
         col1, col2 = st.columns([1, 1])
         col1.markdown(
             """
-            <h1 style="font-size: 4.5em; font-weight: bold; color: #e63946;">FoodViz</h1>
-            <h3 style="font-size: 2.5em; color: #a8dadc;">Interactive Food Composition Explorer</h3>
+            <h1 style="font-size: 8em; font-weight: bold; color: #e63946;">FoodViz</h1>
+            <h3 style="font-size: 4em; color: #a8dadc;">Interactive Indian Food Composition Explorer</h3>
             """,
             unsafe_allow_html=True,
         )
@@ -22,7 +22,7 @@ def run():
             canvas = f.read()
 
         with col2:
-            components.html(canvas, height=400, width=600)
+            components.html(canvas, height=600, width=800)
         # col2.image(
         #     "https://img.freepik.com/premium-photo/different-types-meats-vegetables-fruits-lay-"
         #     "supermarkets-generative-ai_572887-4418.jpg",
@@ -38,8 +38,8 @@ def run():
         )
         st.markdown(
             f"""
-            <h2 style="font-size: 2.5em; font-weight: bold; text-align: center; color: #457b9d">{cphrase}</h2>
-            <h5 style="font-size: 1.5em; text-align: center;">{cphrase_sub}</h5>
+            <h2 style="font-size: 3em; font-weight: bold; text-align: center; color: #457b9d">{cphrase}</h2>
+            <h5 style="font-size: 2em; text-align: center;">{cphrase_sub}</h5>
             """,
             unsafe_allow_html=True,
         )

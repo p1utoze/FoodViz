@@ -25,10 +25,9 @@ RUN python3 -m pip install -r requirements.txt
 # Copy the Entry Point script
 COPY app.py /app/app.py
 
-COPY src/pages/ /app/pages
-COPY src/data/ /app/data/
+COPY foodviz/pages/ /app/pages
+COPY foodviz/ /app/foodviz/
 COPY .streamlit /app/.streamlit
-COPY src/utils/ /app/src
 
 # Expose the port
 EXPOSE 8501

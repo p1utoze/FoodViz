@@ -1,12 +1,12 @@
 import pandas as pd
 import streamlit as st
 from plotly import express as px, graph_objects as go
-from src.utils import (
+from foodviz.utils import (
     prepare_indian_geojson,
     prepare_indian_languages,
     prepare_unit_data,
 )
-from src.utils.config import (
+from foodviz.utils.config import (
     DB_FOOD_CODE_HEADER,
     DB_FOOD_NAME_HEADER,
     DB_FOOD_TAGS_HEADER,
@@ -14,7 +14,7 @@ from src.utils.config import (
     DB_TABLE_NAME,
     PROJECT_ROOT,
 )
-from src.utils.config import load_json
+from foodviz.utils.config import load_json
 
 
 def run():
