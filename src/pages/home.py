@@ -1,11 +1,16 @@
 import streamlit as st
 import streamlit.components.v1 as components
+from pathlib import Path
+from src.utils.helpers import load_bubble_data
+from src.utils.config import PROJECT_ROOT
 
+custom_chart = Path(__file__).parent / "frontend" / "bubble.html"
+chart_data = PROJECT_ROOT / "data" / "food-types.csv"
 
 def run():
     empty = st.empty()
     with empty.container():
-        col1, col2 = st.columns([1, 2])
+        col1, col2 = st.columns([1, 1])
         col1.markdown(
             """
             <h1 style="font-size: 4.5em; font-weight: bold; color: #e63946;">FoodViz</h1>
@@ -13,10 +18,11 @@ def run():
             """,
             unsafe_allow_html=True,
         )
-        with open("frontend/chart.html", "r") as f:
+        with open(custom_chart.absolute(), "r") as f:
             canvas = f.read()
 
-        components.html(canvas, height=400)
+        with col2:
+            components.html(canvas, height=400, width=600)
         # col2.image(
         #     "https://img.freepik.com/premium-photo/different-types-meats-vegetables-fruits-lay-"
         #     "supermarkets-generative-ai_572887-4418.jpg",
