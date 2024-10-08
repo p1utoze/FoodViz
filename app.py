@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit_antd_components as sac
 from dotenv import load_dotenv
 # from src.pages.comparer import run as comparer_run
-from pages import home_run, comparer_run, search_run, viewer_run
+from src.pages import home_run, comparer_run, search_run, viewer_run
 # from src.pages.viewer import run as viewer_run
 # from src.pages.search import run as search_run
 from src.utils import SupabaseConnection
