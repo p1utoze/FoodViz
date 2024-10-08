@@ -25,10 +25,10 @@ RUN python3 -m pip install -r requirements.txt
 # Copy the Entry Point script
 COPY app.py /app/app.py
 
-COPY pages/ /app/pages
-COPY data/ /app/data/
+COPY src/pages/ /app/pages
+COPY src/data/ /app/data/
 COPY .streamlit /app/.streamlit
-COPY src/ /app/src
+COPY src/utils/ /app/src
 
 # Expose the port
 EXPOSE 8501
