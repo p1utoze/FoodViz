@@ -22,7 +22,7 @@
             color: white;
             padding: 5px 10px;
             border-radius: 5px;
-            font-size: 12px;
+            font-size: 24px;
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.3s;
@@ -57,7 +57,7 @@ const tooltip = d3.select(".tooltip");
 
 async function getData() {
     try {
-        return await d3.csv('https://raw.githubusercontent.com/p1utoze/FoodViz/refs/heads/main/src/data/food-types.csv');
+        return await d3.csv('https://raw.githubusercontent.com/p1utoze/FoodViz/refs/heads/main/foodviz/data/food-types.csv');
     } catch (error) {
         console.error("Error loading CSV:", error);
         throw error;

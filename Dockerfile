@@ -25,7 +25,6 @@ RUN python3 -m pip install -r requirements.txt
 # Copy the Entry Point script
 COPY app.py /app/app.py
 
-COPY foodviz/pages/ /app/pages
 COPY foodviz/ /app/foodviz/
 COPY .streamlit /app/.streamlit
 
