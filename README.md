@@ -27,4 +27,3 @@ streamlit run app.py
 ```
 
 
-Currently the application is under development and only supports visualization of data. The querying feature will be added soon.
