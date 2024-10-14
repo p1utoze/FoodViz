@@ -91,47 +91,46 @@ def run():
 
     tab1, tab2 = st.tabs(["🍽 Overview", "🔢 Nutritional Details"])
     with tab1:
-        with st.container(height=100):
-            return_cols = f"{DB_FOOD_CODE_HEADER}, {DB_FOOD_NAME_HEADER}, {DB_SCI_NAME_HEADER}, {DB_FOOD_TAGS_HEADER}"
-            col1, col2 = st.columns(2, gap="large")
-            grp_name = col1.selectbox(
-                "Choose a food group: ",
-                _sess_state["fg"].keys(),
-                index=None,
-                placeholder="Select a food group",
-                on_change=tab1_box1_callback,
+        return_cols = f"{DB_FOOD_CODE_HEADER}, {DB_FOOD_NAME_HEADER}, {DB_SCI_NAME_HEADER}, {DB_FOOD_TAGS_HEADER}"
+        col1, col2 = st.columns(2, gap="large")
+        grp_name = col1.selectbox(
+            "Choose a food group: ",
+            _sess_state["fg"].keys(),
+            index=None,
+            placeholder="Select a food group",
+            on_change=tab1_box1_callback,
+        )
+        if grp_name:
+            fil_row = query_with_filter_like(
+                return_columns=return_cols,
+                table=DB_TABLE_NAME,
+                column=DB_FOOD_CODE_HEADER,
+                value=_sess_state["fg"][grp_name],
             )
-            if grp_name:
-                fil_row = query_with_filter_like(
-                    return_columns=return_cols,
-                    table=DB_TABLE_NAME,
-                    column=DB_FOOD_CODE_HEADER,
-                    value=_sess_state["fg"][grp_name],
-                )
-                # fil_row = pd.DataFrame(fil_row.data)
-                sel = col2.selectbox(
-                    "Choose a food item: ",
-                    ["ALL"] + fil_row[DB_FOOD_NAME_HEADER].tolist(),
-                    index=None,
-                    placeholder="Select a food item",
-                )
-                if sel == "ALL":
-                    _sess_state["is_fil_row"] = False
-                    fil_row[DB_FOOD_TAGS_HEADER] = fil_row[DB_FOOD_TAGS_HEADER].str.split(" ")
-                    img_urls = [
-                        _sess_state["_conn"].get_public_url("indian_food", f"{code}.jpg")
-                        for code in fil_row[DB_FOOD_CODE_HEADER]
-                    ]
-                    fil_row["images"] = img_urls
-                elif sel:
-                    sel_name = sel
-                    _sess_state["disabled"] = False
+            # fil_row = pd.DataFrame(fil_row.data)
+            sel = col2.selectbox(
+                "Choose a food item: ",
+                ["ALL"] + fil_row[DB_FOOD_NAME_HEADER].tolist(),
+                index=None,
+                placeholder="Select a food item",
+            )
+            if sel == "ALL":
+                _sess_state["is_fil_row"] = False
+                fil_row[DB_FOOD_TAGS_HEADER] = fil_row[DB_FOOD_TAGS_HEADER].str.split(" ")
+                img_urls = [
+                    _sess_state["_conn"].get_public_url("indian_food", f"{code}.jpg")
+                    for code in fil_row[DB_FOOD_CODE_HEADER]
+                ]
+                fil_row["images"] = img_urls
+            elif sel:
+                sel_name = sel
+                _sess_state["disabled"] = False
 
-                    _sess_state["is_fil_row"] = True
-                    sel = fil_row.loc[fil_row[DB_FOOD_NAME_HEADER] == sel, DB_FOOD_CODE_HEADER].values[0]
-                    _sess_state["selected_code"] = sel
-            else:
-                _sess_state["selected_code"] = None
+                _sess_state["is_fil_row"] = True
+                sel = fil_row.loc[fil_row[DB_FOOD_NAME_HEADER] == sel, DB_FOOD_CODE_HEADER].values[0]
+                _sess_state["selected_code"] = sel
+        else:
+            _sess_state["selected_code"] = None
 
         view = st.empty()
         if "is_fil_row" in _sess_state and not _sess_state["is_fil_row"]:
