@@ -73,9 +73,10 @@ async function initializeVisualization() {
     const maxItems = d3.max(items);
 
     // Create a scale for the radius
-    const radiusScale = d3.scaleLinear()
-        .domain([minItems, maxItems])
-        .range([25, 100]);  // You can adjust these values to change the min and max bubble sizes
+    const radiusScale = d3.scaleLinear(
+        [minItems, maxItems],
+        [25, 100]
+    );  // You can adjust these values to change the min and max bubble sizes
 
     const data = csvData.map((k) => ({
         id: k.grup,
